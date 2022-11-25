@@ -7,31 +7,31 @@ const DashboardLayout = () => {
   const dashboardMenu = (
     <>
       <label htmlFor="my-drawer-4">
-        <li>
+        <li className="mb-2">
           <Link to="/">Home</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/all-users">All Users</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/my-orders">My Orders</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/add-product">Add Product</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/my-products">My Products</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/my-buyers">My Buyers</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/all-sellers">All Sellers</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/all-buyers">All Buyers</Link>
         </li>
-        <li>
+        <li className="mb-2">
           <Link to="/dashboard/reported-items">Reported Items</Link>
         </li>
       </label>
