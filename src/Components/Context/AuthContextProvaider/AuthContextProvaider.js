@@ -19,11 +19,11 @@ const AuthContextProvaider = ({ children }) => {
   const [user, setUser] = useState(null);
   //   console.log(user);
   // Loding state
-  const [loding, setLoding] = useState(true);
+  const [loading, setloading] = useState(true);
 
   // user create email and password
   const createUserEmailPassword = (email, password) => {
-    setLoding(true);
+    setloading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -34,18 +34,18 @@ const AuthContextProvaider = ({ children }) => {
 
   //user Login function
   const loginUser = (email, password) => {
-    setLoding(true);
+    setloading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   // password forgot function
   const forgotPassword = (email) => {
-    console.log(email);
+    setloading(true);
     return sendPasswordResetEmail(auth, email);
   };
   // user Log Out function
   const logOut = () => {
-    setLoding(true);
+    setloading(true);
     return signOut(auth);
   };
 
@@ -54,7 +54,7 @@ const AuthContextProvaider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("current user apice");
       setUser(currentUser);
-      setLoding(false);
+      setloading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -67,6 +67,8 @@ const AuthContextProvaider = ({ children }) => {
     logOut,
     loginUser,
     forgotPassword,
+    loading,
+    setloading,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

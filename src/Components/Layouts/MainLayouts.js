@@ -6,7 +6,7 @@ import Navbar from "../Pages/Share/Navbar/Navbar";
 const MainLayouts = () => {
   return (
     <div>
-      <div className="bg-gray-800">
+      <div className="bg-gray-800 sticky top-0 left-0 z-[99]">
         <Navbar />
       </div>
       <div className="max-w-[1400px] mx-auto">

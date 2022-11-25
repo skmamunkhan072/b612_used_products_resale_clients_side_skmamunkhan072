@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
+import Loading from "../Share/Loading/Loading";
+import "./Login.css";
 
 const Login = () => {
-  const { loginUser, forgotPassword } = useContext(AuthContext);
+  const { loginUser, forgotPassword, loading, setloading } =
+    useContext(AuthContext);
   const [loginError, setloginError] = useState("");
   const [loginInfo, setloginInfo] = useState("");
   const navigate = useNavigate();
@@ -28,6 +31,7 @@ const Login = () => {
         const errorMessages = err.message.split("/")[1].split(")")[0];
         setloginError(errorMessages);
         toast.error(`your ${errorMessages}`);
+        setloading(false);
       });
   };
 
@@ -38,9 +42,14 @@ const Login = () => {
       .then((result) => {})
       .catch((err) => {});
   };
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="h-[800px] flex justify-center items-center">
-      <div className="w-96 p-7">
+    <div className="from_wraper h-[800px] flex justify-center items-center">
+      <div className="px-10 py-20 bg-slate-800 rounded-lg shadow-lg	">
         <h2 className="text-xl text-center">Log In</h2>
         <form onSubmit={handleSubmit(handelLogIn)}>
           <div className="form-control w-full max-w-xs">
@@ -100,7 +109,7 @@ const Login = () => {
         </form>
         <p className="mt-3">
           If you don't have an account
-          <Link className="text-secondary ml-3" to="/singup">
+          <Link className="text-emerald-500	ml-3" to="/singup">
             Please Sing Up
           </Link>
         </p>

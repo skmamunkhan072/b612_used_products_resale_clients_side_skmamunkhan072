@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
+import Login from "../Login/Login";
 
 const SingUp = () => {
-  const { createUserEmailPassword, updateUser } = useContext(AuthContext);
+  const { createUserEmailPassword, updateUser, loading, setloading } =
+    useContext(AuthContext);
   const [signUpError, setSignUPError] = useState("");
   const navigate = useNavigate();
   const {
@@ -25,6 +27,7 @@ const SingUp = () => {
       .catch((err) => {
         console.log(err);
         setSignUPError(err.message);
+        setloading(false);
       });
   };
 
@@ -36,14 +39,19 @@ const SingUp = () => {
       .catch((updateError) => {
         console.log(updateError);
         setSignUPError(updateError.message);
+        setloading(false);
       });
   };
+
+  if (loading) {
+    return <Login />;
+  }
   return (
-    <div className="h-[800px] flex justify-center items-center">
-      <div className="w-96 p-7">
+    <div className="from_wraper h-[800px] flex justify-center items-center">
+      <div className="w-2/6 px-10 py-20 bg-slate-800 rounded-lg shadow-lg	">
         <h2 className="text-xl text-center">Sign Up</h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
-          <div className="form-control w-full max-w-xs">
+          <div className="form-control w-full max-w-lg">
             <label className="label">
               <span className="label-text">Name</span>
             </label>
@@ -52,13 +60,13 @@ const SingUp = () => {
               {...register("name", {
                 required: "Name is Required",
               })}
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-lg"
             />
             {errors.name && (
               <p className="text-red-500">{errors.name.message}</p>
             )}
           </div>
-          <div className="form-control w-full max-w-xs">
+          <div className="form-control w-full max-w-lg">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
@@ -67,14 +75,14 @@ const SingUp = () => {
               {...register("email", {
                 required: true,
               })}
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-lg"
             />
             {errors.email && (
               <p className="text-red-500">{errors.email.message}</p>
             )}
           </div>
 
-          <div className="form-control w-full max-w-xs">
+          <div className="form-control w-full max-w-lg">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
@@ -92,21 +100,21 @@ const SingUp = () => {
                     "Password must have uppercase, number and special characters",
                 },
               })}
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-lg"
             />
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}
           </div>
 
-          <div className="form-control w-full max-w-xs">
+          <div className="form-control w-full max-w-lg">
             <label className="label">
               <span className="label-text">Select</span>
             </label>
             <select
               type="text"
               {...register("selectedRole")}
-              className="select input-bordered w-full max-w-xs"
+              className="select input-bordered w-full max-w-lg"
             >
               <option>user</option>
               <option>sealer</option>
@@ -121,7 +129,7 @@ const SingUp = () => {
         </form>
         <p className="mt-3">
           Already have an account
-          <Link className="text-secondary ml-3" to="/login">
+          <Link className="text-emerald-500 ml-3" to="/login">
             Please Login
           </Link>
         </p>

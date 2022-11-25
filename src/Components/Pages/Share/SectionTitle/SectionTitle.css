@@ -1,0 +1,15 @@
+.section_title {
+  position: relative;
+}
+.section_title::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(255, 0, 234);
+  width: 200px;
+  height: 5px;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}

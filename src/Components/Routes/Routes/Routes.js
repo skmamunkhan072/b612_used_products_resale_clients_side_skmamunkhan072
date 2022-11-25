@@ -1,4 +1,4 @@
-import Home from "../../Pages/Home/Home";
+import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import ErrorPage from "../../Pages/Share/ErrorPage/ErrorPage";
 import SingUp from "../../Pages/SingUp/SingUp";
