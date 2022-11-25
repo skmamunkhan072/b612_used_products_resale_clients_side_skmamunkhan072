@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineBars } from "react-icons/ai";
 import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -13,6 +14,8 @@ const Navbar = () => {
   const handelSingOut = () => {
     logOut()
       .then(() => {
+        localStorage.removeItem("access_Token");
+        toast.success("singOut is successfully");
         navigate("/login");
       })
       .catch((err) => {});

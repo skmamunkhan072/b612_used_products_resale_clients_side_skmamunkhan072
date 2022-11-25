@@ -42,6 +42,7 @@ const Category = () => {
       postTime: "12/2/2022",
     },
   ];
+
   return (
     <div>
       <SectionTitle title="Shop By Category" />
