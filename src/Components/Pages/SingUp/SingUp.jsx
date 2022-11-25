@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import { serverUrl } from "../../Firbase/Firbase.config";
 import Login from "../Login/Login";
@@ -10,11 +10,13 @@ const SingUp = () => {
     useContext(AuthContext);
   const [signUpError, setSignUPError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSignUp = (data) => {
     const { email, password, name } = data;
@@ -57,7 +59,7 @@ const SingUp = () => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          navigate("/");
+          navigate(from, { replace: true });
           setloading(false);
         }
       });
