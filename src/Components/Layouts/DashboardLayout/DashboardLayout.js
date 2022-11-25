@@ -2,52 +2,52 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AiOutlineBars } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
+import "./DashboardLayout.css";
 
 const DashboardLayout = () => {
   const dashboardMenu = (
     <>
-      <label htmlFor="my-drawer-4">
-        <li className="mb-2">
-          <Link to="/">Home</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/all-users">All Users</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/my-orders">My Orders</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/add-product">Add Product</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/my-products">My Products</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/my-buyers">My Buyers</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/all-sellers">All Sellers</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/all-buyers">All Buyers</Link>
-        </li>
-        <li className="mb-2">
-          <Link to="/dashboard/reported-items">Reported Items</Link>
-        </li>
-      </label>
+      <li className="mb-2">
+        <Link to="/">Home</Link>
+      </li>
+
+      <li className="mb-2">
+        <Link to="/dashboard/all-users">All Users</Link>
+      </li>
+
+      <li className="mb-2">
+        <Link to="/dashboard/my-orders">My Orders</Link>
+      </li>
+      <li className="mb-2">
+        <Link to="/dashboard/add-product">Add Product</Link>
+      </li>
+      <li className="mb-2">
+        <Link to="/dashboard/my-products">My Products</Link>
+      </li>
+      <li className="mb-2">
+        <Link to="/dashboard/my-buyers">My Buyers</Link>
+      </li>
+      <li className="mb-2">
+        <Link to="/dashboard/all-sellers">All Sellers</Link>
+      </li>
+      <li className="mb-2">
+        <Link to="/dashboard/all-buyers">All Buyers</Link>
+      </li>
+      <li className="mb-2">
+        <Link to="/dashboard/reported-items">Reported Items</Link>
+      </li>
     </>
   );
   return (
     <div>
       <div className="drawer drawer-end drawer-mobile">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content lg:pt-10">
+        <div id="drawer_content_wraper" className="drawer-content lg:pt-10">
           <div className="lg:hidden block flex justify-end items-center">
-            <label htmlFor="my-drawer-4" className="mr-20 mt-5">
+            <label htmlFor="my-drawer-4" className="mr-20 mt-5 mb-10">
               <AiOutlineBars className="text-2xl" />
             </label>
           </div>
-
           <Outlet />
         </div>
         <div className="drawer-side">

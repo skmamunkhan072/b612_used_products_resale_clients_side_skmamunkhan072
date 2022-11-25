@@ -1,4 +1,4 @@
-import DashboardLayout from "../../Layouts/DashboardLayout";
+import DashboardLayout from "../../Layouts/DashboardLayout/DashboardLayout";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
