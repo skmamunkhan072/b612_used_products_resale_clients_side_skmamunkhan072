@@ -4,7 +4,7 @@ import SectionTitle from "../../Share/SectionTitle/SectionTitle";
 const AddProduct = () => {
   return (
     <div className="from_wraper -mt-10 h-[100vh]	">
-      <div>
+      <div className="mt-10">
         <SectionTitle title={"Add Your Product"} />
       </div>
       <div className="w-3/4 mx-auto">

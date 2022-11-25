@@ -1,4 +1,5 @@
 import React from "react";
+import SectionTitle from "../../Share/SectionTitle/SectionTitle";
 import MyProductsCard from "./MyProductsCard";
 
 const MyProducts = () => {
@@ -53,11 +54,16 @@ const MyProducts = () => {
     },
   ];
   return (
-    <div className="px-10">
-      {myProductInfo.map((product) => (
-        <MyProductsCard key={product._id} myProductInfo={product} />
-      ))}
-    </div>
+    <section>
+      <div className="mb-5">
+        <SectionTitle title={"My All Products"} />
+      </div>
+      <div className="px-10">
+        {myProductInfo.map((product) => (
+          <MyProductsCard key={product._id} myProductInfo={product} />
+        ))}
+      </div>
+    </section>
   );
 };
 
