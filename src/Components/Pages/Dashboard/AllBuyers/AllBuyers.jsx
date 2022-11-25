@@ -5,7 +5,7 @@ const AllBuyers = () => {
   return (
     <section>
       <div className="mb-5">
-        <SectionTitle title={"AllBuyers"} />
+        <SectionTitle title={"All Buyers"} />
       </div>
       <div className="px-10">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
