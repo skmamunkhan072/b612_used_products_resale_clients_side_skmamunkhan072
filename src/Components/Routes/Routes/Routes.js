@@ -2,6 +2,7 @@ import DashboardLayout from "../../Layouts/DashboardLayout";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
+import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard.jsx";
 import MyBuyers from "../../Pages/Dashboard/MyBuyers/MyBuyers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/dashboard/all-users", element: <AllUsers /> },
       { path: "/dashboard/my-orders", element: <MyOrders /> },
       { path: "/dashboard/add-product", element: <AddProduct /> },
       { path: "/dashboard/my-products", element: <MyProducts /> },
