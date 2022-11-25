@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
-import { serverUrl } from "../../Firbase/Firbase.config";
+import { serverUrl } from "../../Hooks/AllUrl/AllUrl";
 import Login from "../Login/Login";
 
 const SingUp = () => {
