@@ -42,7 +42,7 @@ const DashboardLayout = () => {
     <div>
       <div className="drawer drawer-end drawer-mobile">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div id="drawer_content_wraper" className="drawer-content lg:pt-10">
+        <div id="drawer_content_wraper" className="drawer-content">
           <div className="lg:hidden block flex justify-end items-center">
             <label htmlFor="my-drawer-4" className="mr-20 mt-5 mb-10">
               <AiOutlineBars className="text-2xl" />
