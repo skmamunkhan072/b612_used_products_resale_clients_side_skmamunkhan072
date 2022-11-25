@@ -1,9 +1,10 @@
 import React from "react";
+import AllUsers from "../AllUsers/AllUsers";
 
 const dashboard = () => {
   return (
     <div>
-      <h1>This si dasbord</h1>
+      <AllUsers />
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React from "react";
 import CategoryButtonGrop from "./CategoryButtonGrop";
 import SectionTitle from "../../Share/SectionTitle/SectionTitle";
 import CategoryCard from "./CategoryCard";
-import Modal from "../../Share/Modal/Modal";
 
 const Category = () => {
   const CategoryCardData = [
@@ -52,9 +51,7 @@ const Category = () => {
           <CategoryCard key={categoryInfo._id} categoryInfo={categoryInfo} />
         ))}
       </div>
-      <div>
-        <Modal />
-      </div>
+      <div>{/* <Modal /> */}</div>
     </div>
   );
 };

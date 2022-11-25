@@ -41,8 +41,8 @@ const Modal = () => {
               </label>
               <input
                 type="text"
-                defaultValue={user.displayName}
-                value={user.displayName}
+                defaultValue={user?.displayName}
+                value={user?.displayName}
                 disabled
                 className="input input-bordered w-full max-w-lg"
               />
@@ -53,8 +53,8 @@ const Modal = () => {
               </label>
               <input
                 type="text"
-                defaultValue={user.email}
-                value={user.email}
+                defaultValue={user?.email}
+                value={user?.email}
                 disabled
                 className="input input-bordered w-full max-w-lg"
               />

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
+import { serverUrl } from "../../Firbase/Firbase.config";
 import Login from "../Login/Login";
 
 const SingUp = () => {
@@ -16,30 +17,49 @@ const SingUp = () => {
   } = useForm();
 
   const handleSignUp = (data) => {
-    const { email, password, name, selectedRole } = data;
-    console.log(name, selectedRole);
+    const { email, password, name } = data;
     setSignUPError("");
     createUserEmailPassword(email, password)
       .then((result) => {
         const userUpdateInfo = { displayName: name };
-        updateUserProfile(userUpdateInfo);
+        updateUserProfile(userUpdateInfo, data);
       })
       .catch((err) => {
         console.log(err);
         setSignUPError(err.message);
-        setloading(false);
       });
   };
-
-  const updateUserProfile = (userUpdateInfo) => {
+  // update user profile function
+  const updateUserProfile = (userUpdateInfo, userData) => {
     updateUser(userUpdateInfo)
       .then((result) => {
-        navigate("/");
+        databaseUserPost(userData);
       })
       .catch((updateError) => {
         console.log(updateError);
         setSignUPError(updateError.message);
-        setloading(false);
+      });
+  };
+  // user data post database
+  const databaseUserPost = (userData) => {
+    const { email, name, selectedRole } = userData;
+    const user = { email, name, selectedRole };
+
+    // user data post
+    fetch(`${serverUrl}/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          navigate("/");
+          setloading(false);
+        }
       });
   };
 
