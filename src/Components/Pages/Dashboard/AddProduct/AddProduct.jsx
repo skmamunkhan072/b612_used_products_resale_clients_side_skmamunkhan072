@@ -3,7 +3,7 @@ import SectionTitle from "../../Share/SectionTitle/SectionTitle";
 
 const AddProduct = () => {
   return (
-    <div className="from_wraper min-h-screen	">
+    <div className="from_wraper -mt-10 h-[100vh]	">
       <div>
         <SectionTitle title={"Add Your Product"} />
       </div>
