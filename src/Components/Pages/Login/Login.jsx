@@ -48,7 +48,7 @@ const Login = () => {
   }
 
   return (
-    <div className="from_wraper h-[800px] flex justify-center items-center">
+    <div className="from_wraper h-[800px] flex justify-center items-center z-[999]">
       <div className="px-10 py-20 bg-slate-800 rounded-lg shadow-lg	">
         <h2 className="text-xl text-center">Log In</h2>
         <form onSubmit={handleSubmit(handelLogIn)}>

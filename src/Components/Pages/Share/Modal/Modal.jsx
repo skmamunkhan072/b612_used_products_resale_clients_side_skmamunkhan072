@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
+import Login from "../../Login/Login";
 
 const Modal = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -14,6 +15,10 @@ const Modal = () => {
     const { number, userLocation } = data;
     console.log(number, userLocation);
   };
+
+  if (loading) {
+    return <Login />;
+  }
   return (
     <div>
       <input type="checkbox" id="booking_modal" className="modal-toggle" />
