@@ -60,12 +60,3 @@ const AllUsers = () => {
 };
 
 export default AllUsers;
-
-{
-  /* <td class="w-1/2 border-2 text-grey-300 lg:w-auto p-3 text-center block lg:table-cell relative lg:static">
-<span class="border-2 items-center flex lg:hidden h-[100%] absolute top-0 left-0 px-2 py-1 text-xs font-bold ">
-  <strong>coponent</strong>
-</span>
-KnobHome
-</td> */
-}
