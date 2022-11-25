@@ -1,16 +1,35 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { AiOutlineBars } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
 
 const DashboardLayout = () => {
   const dashboardMenu = (
     <>
       <label htmlFor="my-drawer-4">
         <li>
-          <a>Sidebar Item 1</a>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <a>Sidebar Item 2</a>
+          <Link to="/dashboard/my-orders">My orders</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/add-product">Add product</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/my-products">My Products</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/my-buyers">My buyers</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/all-sellers">All Sellers</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/all-buyers">All Buyers</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/reported-items">Reported Items</Link>
         </li>
       </label>
     </>
@@ -22,7 +41,7 @@ const DashboardLayout = () => {
         <div className="drawer-content lg:pt-10">
           <div className="lg:hidden block flex justify-end items-center">
             <label htmlFor="my-drawer-4" className="mr-20 mt-5">
-              <AiOutlineBars className="text-3xl" />
+              <AiOutlineBars className="text-2xl" />
             </label>
           </div>
 
@@ -33,7 +52,7 @@ const DashboardLayout = () => {
           <ul className="menu p-4 pt-16 w-80 bg-base-300 text-base-content relative	">
             <div className="lg:hidden block flex justify-end items-center absolute top-0">
               <label htmlFor="my-drawer-4" className="mr-20 mt-5">
-                <AiOutlineBars className="text-2xl" />
+                <IoMdClose className="text-3xl text-white" />
               </label>
             </div>
             {dashboardMenu}
