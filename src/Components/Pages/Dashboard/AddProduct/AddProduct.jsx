@@ -1,8 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import { useContext } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
+import Loading from "../../Share/Loading/Loading";
 import SectionTitle from "../../Share/SectionTitle/SectionTitle";
 
 const AddProduct = () => {
@@ -14,38 +17,52 @@ const AddProduct = () => {
   } = useForm();
 
   const defaultMonthAndDate = new Date().toLocaleString();
+  const { user } = useContext(AuthContext);
   // const time = format(selected, 'PP')
   const newDate = defaultMonthAndDate.split(",")[0].split("/").join("-");
   const newTiem = new Date().toLocaleTimeString(navigator.language, {
     hour: "2-digit",
     minute: "2-digit",
   });
-
   useEffect(() => {
     fetch(`${serverUrl}/all-products-category/`)
       .then((res) => res.json())
       .then((data) => setCategoryNameData(data));
   }, []);
 
+  // add product function
+  // const { displayName, email } = user;
+  const handelAddProduct = (data) => {
+    // console.log(data);
+    const productData = {
+      ...data,
+      email: user?.email,
+      name: user?.displayName,
+      postDate: newDate,
+      postTime: newTiem,
+    };
+    console.log(productData);
+  };
+
+  if (!user) {
+    return <Loading />;
+  }
   return (
     <div className="from_wraper -mt-10 h-[100vh]	">
       <div className="mt-10">
         <SectionTitle title={"Add Your Product"} />
       </div>
       <div className="w-3/4 mx-auto">
-        <form className="mt-20">
+        <form className="mt-20" onSubmit={handleSubmit(handelAddProduct)}>
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative z-0 mb-6 w-full group">
               <input
                 type="text"
                 name="name"
                 id="name"
-                {...register("name", {
-                  required: "Name is Required",
-                })}
+                value={user?.displayName}
+                disabled
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=""
-                required
               />
               <label
                 htmlFor="name"
@@ -58,13 +75,10 @@ const AddProduct = () => {
               <input
                 type="text"
                 name="email"
-                {...register("email", {
-                  required: "email is Required",
-                })}
+                value={user?.email}
+                disabled
                 id="email"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=""
-                required
               />
               <label
                 htmlFor="email"
@@ -84,8 +98,6 @@ const AddProduct = () => {
                 })}
                 id="floating_phone"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
               />
               <label
                 htmlFor="floating_phone"
@@ -103,8 +115,6 @@ const AddProduct = () => {
                 })}
                 id="location"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
               />
               <label
                 htmlFor="location"
@@ -124,8 +134,6 @@ const AddProduct = () => {
                 })}
                 id="title"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
               />
               <label
                 htmlFor="title"
@@ -143,14 +151,12 @@ const AddProduct = () => {
                 })}
                 id="hasBeenUsed"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
               />
               <label
                 htmlFor="hasBeenUsed"
                 className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >
-                hasBeenUsed
+                Has Been Used
               </label>
             </div>
           </div>
@@ -164,14 +170,12 @@ const AddProduct = () => {
                 })}
                 id="originalPrice"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
               />
               <label
                 htmlFor="originalPrice"
                 className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >
-                originalPrice
+                Original Price
               </label>
             </div>
             <div className="relative z-0 mb-6 w-full group">
@@ -183,8 +187,6 @@ const AddProduct = () => {
                 })}
                 id="resalePrice"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
               />
               <label
                 htmlFor="resalePrice"
@@ -202,8 +204,6 @@ const AddProduct = () => {
                 })}
                 id="resalePrice"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
               >
                 {categoryNameData.map((category) => (
                   <option
@@ -233,8 +233,6 @@ const AddProduct = () => {
               })}
               id="details"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer resize-none"
-              placeholder=""
-              required
               rows={"1"}
             />
             <label
