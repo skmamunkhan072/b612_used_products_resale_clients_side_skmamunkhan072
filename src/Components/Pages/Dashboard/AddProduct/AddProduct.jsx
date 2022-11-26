@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 import Loading from "../../Share/Loading/Loading";
@@ -42,6 +43,20 @@ const AddProduct = () => {
       postTime: newTiem,
     };
     console.log(productData);
+    fetch(`${serverUrl}/add-product`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+      body: JSON.stringify(productData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("your products is add");
+        }
+      });
   };
 
   if (!user) {
