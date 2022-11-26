@@ -3,7 +3,6 @@ import CategoryButtonGrop from "./CategoryButtonGrop";
 import SectionTitle from "../../Share/SectionTitle/SectionTitle";
 import CategoryCard from "./CategoryCard";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
-import { useQuery } from "@tanstack/react-query";
 
 const Category = () => {
   const CategoryCardData = [
@@ -16,8 +15,7 @@ const Category = () => {
       sellersName: "mamun",
       sellersVerify: true,
       resalePrice: 5000,
-      originalPrice: 10000,
-      postTime: "12/2/2022",
+      postTime: "12-2-2022",
     },
     {
       _id: 2,
@@ -25,11 +23,11 @@ const Category = () => {
       location: "Dhaka, Bangladash",
       hasBeenUsed: "2year",
       originalPrice: "100Tk",
+      resalePrice: "5000Tk",
       sellersName: "mamun",
       sellersVerify: true,
-      resalePrice: 5000,
-      originalPrice: 10000,
       postTime: "12/2/2022",
+      descripTion: "discription",
     },
     {
       _id: 3,
@@ -40,17 +38,23 @@ const Category = () => {
       sellersName: "mamun",
       sellersVerify: true,
       resalePrice: 5000,
-      originalPrice: 10000,
       postTime: "12/2/2022",
+      descripTion: "discription",
     },
   ];
 
   //category get id function adn data fetch
   const handelCategory = (id) => {
-    fetch(`${serverUrl}/all-products-category/?categoryId=${id}`)
+    fetch(`${serverUrl}/all-products-category/?categoryId=${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => console.log(data));
   };
+
   return (
     <div>
       <SectionTitle title="Shop By Category" />
