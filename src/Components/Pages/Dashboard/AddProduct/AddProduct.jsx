@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
 import { HandelImgHost } from "../../../Hooks/AllFunctionHoks";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
@@ -15,6 +16,7 @@ const AddProduct = () => {
   const { user } = useContext(AuthContext);
   const [imageFile, setImageFile] = useState("");
   const [imgHostLink] = HandelImgHost(imageFile);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -60,6 +62,7 @@ const AddProduct = () => {
       .then((data) => {
         if (data.acknowledged) {
           toast.success("your products is add");
+          navigate("/dashboard/my-products");
         }
       });
   };
