@@ -15,11 +15,12 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthContextProvaider = ({ children }) => {
-  //user state
+  // state start
   const [user, setUser] = useState(null);
   //   console.log(user);
-  // Loding state
   const [loading, setloading] = useState(true);
+
+  // state end
 
   // user create email and password
   const createUserEmailPassword = (email, password) => {

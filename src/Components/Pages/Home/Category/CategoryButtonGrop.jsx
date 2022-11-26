@@ -1,15 +1,22 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
+import Loading from "../../Share/Loading/Loading";
 import CategoryButton from "./CategoryButton";
 
-const CategoryButtonGrop = () => {
-  const [categorys, setCategorys] = useState([]);
-  useEffect(() => {
-    fetch(`${serverUrl}/all-products-category`)
-      .then((res) => res.json())
-      .then((data) => setCategorys(data));
-  }, []);
+const CategoryButtonGrop = ({ handelCategory }) => {
+  const { data: categorys = [], isLoading } = useQuery({
+    queryKey: ["all-products-category"],
+    queryFn: async () => {
+      const res = await fetch(`${serverUrl}/all-products-category`);
+      const data = await res.json();
+      return data;
+    },
+  });
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex items-center justify-center my-5">
       <div
@@ -17,7 +24,11 @@ const CategoryButtonGrop = () => {
         role="group"
       >
         {categorys.map((category) => (
-          <CategoryButton key={category._id} category={category} />
+          <CategoryButton
+            key={category._id}
+            category={category}
+            handelCategory={handelCategory}
+          />
         ))}
       </div>
     </div>
