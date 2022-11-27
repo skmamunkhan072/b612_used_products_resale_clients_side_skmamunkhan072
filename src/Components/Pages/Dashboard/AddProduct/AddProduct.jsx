@@ -22,7 +22,7 @@ const AddProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  //new date
   const defaultMonthAndDate = new Date().toLocaleString();
   const newDate = defaultMonthAndDate.split(",")[0].split("/").join("-");
   const newTiem = new Date().toLocaleTimeString(navigator.language, {

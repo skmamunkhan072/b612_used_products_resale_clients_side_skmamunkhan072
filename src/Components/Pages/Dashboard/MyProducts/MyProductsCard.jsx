@@ -1,6 +1,6 @@
 import React from "react";
 import { BsCheckCircle, BsArrowRight } from "react-icons/bs";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const MyProductsCard = ({ myProductInfo }) => {
   return (
@@ -8,7 +8,11 @@ const MyProductsCard = ({ myProductInfo }) => {
       <div className="sm:flex sm:h-60 justify-start items-start">
         <img
           className="sm:w-[250px] sm:h-[100%] sm:rounded-l-lg"
-          src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+          src={
+            myProductInfo?.productImageUrl
+              ? myProductInfo?.productImageUrl
+              : "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+          }
           alt=""
         />
         <div className="px-5 py-6 text-start w-[100%] relative">
@@ -28,8 +32,11 @@ const MyProductsCard = ({ myProductInfo }) => {
             <div className="flex justify-between items-center">
               <p>seller's name : {myProductInfo.sellersName}</p>
               <span className="p-1 rounded-full ">
-                <BsCheckCircle className="text-green-600" />
-                {/* <AiFillCheckCircle className="text-green-600 text-lg" /> */}
+                {myProductInfo?.sellersVerify ? (
+                  <BsCheckCircle className="text-green-600" />
+                ) : (
+                  <AiOutlineCloseCircle className="text-red-600 text-lg" />
+                )}
               </span>
             </div>
           </div>

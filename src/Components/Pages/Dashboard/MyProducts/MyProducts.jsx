@@ -1,58 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
+import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
+import Loading from "../../Share/Loading/Loading";
 import SectionTitle from "../../Share/SectionTitle/SectionTitle";
 import MyProductsCard from "./MyProductsCard";
 
 const MyProducts = () => {
-  const myProductInfo = [
-    {
-      _id: 1,
-      title: "dell lapto",
-      location: "Dhaka, Bangladash",
-      hasBeenUsed: "2year",
-      originalPrice: "100Tk",
-      sellersName: "mamun",
-      sellersVerify: true,
-      resalePrice: 5000,
-      originalPrice: 10000,
-      postTime: "12/2/2022",
+  const { user, loading } = useContext(AuthContext);
+
+  const { data: myProductInfo, isLoading } = useQuery({
+    queryKey: ["my-products", user],
+    queryFn: async () => {
+      const res = await fetch(`${serverUrl}/my-products?email=${user?.email}`);
+      const data = await res.json();
+      return data;
     },
-    {
-      _id: 2,
-      title: "Hp lapto",
-      location: "Dhaka, Bangladash",
-      hasBeenUsed: "2year",
-      originalPrice: "100Tk",
-      sellersName: "mamun",
-      sellersVerify: true,
-      resalePrice: 5000,
-      originalPrice: 10000,
-      postTime: "12/2/2022",
-    },
-    {
-      _id: 3,
-      title: "Acer lapto",
-      location: "Dhaka, Bangladash",
-      hasBeenUsed: "2year",
-      originalPrice: "100Tk",
-      sellersName: "mamun",
-      sellersVerify: true,
-      resalePrice: 5000,
-      originalPrice: 10000,
-      postTime: "12/2/2022",
-    },
-    {
-      _id: 4,
-      title: "Acer lapto",
-      location: "Dhaka, Bangladash",
-      hasBeenUsed: "2year",
-      originalPrice: "100Tk",
-      sellersName: "mamun",
-      sellersVerify: true,
-      resalePrice: 5000,
-      originalPrice: 10000,
-      postTime: "12/2/2022",
-    },
-  ];
+  });
+
+  console.log(myProductInfo);
+  if (loading || isLoading) {
+    return <Loading />;
+  }
   return (
     <section>
       <div className="mb-5">
