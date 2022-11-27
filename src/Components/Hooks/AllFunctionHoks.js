@@ -24,6 +24,6 @@ export const HandelImgHost = (imageFile = "") => {
           setImgHostLink(data);
         }
       });
-  }, [imageFile]);
+  }, [formData, imageFile, url]);
   return [imgHostLink];
 };

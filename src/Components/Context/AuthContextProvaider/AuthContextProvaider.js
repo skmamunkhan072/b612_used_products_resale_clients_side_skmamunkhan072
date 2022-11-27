@@ -47,6 +47,7 @@ const AuthContextProvaider = ({ children }) => {
   // user Log Out function
   const logOut = () => {
     setloading(true);
+
     return signOut(auth);
   };
 

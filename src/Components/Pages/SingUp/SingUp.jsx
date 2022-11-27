@@ -29,6 +29,7 @@ const SingUp = () => {
       .catch((err) => {
         console.log(err);
         setSignUPError(err.message);
+        setloading(false);
       });
   };
   // update user profile function

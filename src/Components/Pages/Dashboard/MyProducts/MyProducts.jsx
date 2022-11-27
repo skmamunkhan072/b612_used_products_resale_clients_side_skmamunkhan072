@@ -10,16 +10,21 @@ import MyProductsCard from "./MyProductsCard";
 const MyProducts = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const { data: myProductInfo, isLoading } = useQuery({
+  const { data: myProductInfo = [], isLoading } = useQuery({
     queryKey: ["my-products", user],
     queryFn: async () => {
-      const res = await fetch(`${serverUrl}/my-products?email=${user?.email}`);
+      const res = await fetch(`${serverUrl}/my-products?email=${user?.email}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("access_Token")}`,
+        },
+      });
       const data = await res.json();
       return data;
     },
   });
+  // console.log(myProductInfo);
 
-  console.log(myProductInfo);
   if (loading || isLoading) {
     return <Loading />;
   }
@@ -29,7 +34,7 @@ const MyProducts = () => {
         <SectionTitle title={"My All Products"} />
       </div>
       <div className="px-10">
-        {myProductInfo.map((product) => (
+        {myProductInfo?.map((product) => (
           <MyProductsCard key={product._id} myProductInfo={product} />
         ))}
       </div>
