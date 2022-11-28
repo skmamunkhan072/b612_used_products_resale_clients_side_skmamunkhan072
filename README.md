@@ -5,3 +5,5 @@
 .Admin can delete the user if he wants
 .This web site comes with payment system
 .There are 3 categories of products
+.my admin user gmail [skmamunkhan072@gmail.com]
+.my password [123456]
