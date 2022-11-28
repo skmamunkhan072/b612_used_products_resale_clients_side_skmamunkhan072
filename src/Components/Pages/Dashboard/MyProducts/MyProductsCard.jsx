@@ -2,13 +2,11 @@ import React from "react";
 import { BsCheckCircle, BsArrowRight } from "react-icons/bs";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
-import { useState } from "react";
-import Loading from "../../Share/Loading/Loading";
+import { useNavigate } from "react-router-dom";
 
-const MyProductsCard = ({ myProductInfo }) => {
-  const [loading, setLoading] = useState(false);
+const MyProductsCard = ({ myProductInfo, refetch }) => {
+  const navigate = useNavigate("/");
   const handelAdvertisedItems = (id) => {
-    setLoading(true);
     fetch(`${serverUrl}/my-products/${id}`, {
       method: "PUT",
       headers: {
@@ -18,15 +16,13 @@ const MyProductsCard = ({ myProductInfo }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data?.acknowledged) {
-          setLoading(false);
+          refetch();
+          navigate("/advertised-items");
         }
       });
   };
-  if (loading) {
-    return <Loading />;
-  }
+
   return (
     <div className="relative bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 mb-10">
       <div className="sm:flex sm:h-60 justify-start items-start">

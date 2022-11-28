@@ -1,21 +1,67 @@
 import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
+import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 import Login from "../../Login/Login";
 
-const Modal = () => {
-  const { user, loading } = useContext(AuthContext);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const handelBook = (data) => {
-    const { number, userLocation } = data;
-    console.log(number, userLocation);
-  };
+const Modal = ({ bookNowItemID }) => {
+  const { user, loading, setloading } = useContext(AuthContext);
+  const [bookingDataInfo, setBookingDataInfo] = useState({});
+  const [number, setnumber] = useState(false);
+  const [location, setLocationr] = useState(false);
+  useEffect(() => {
+    if (!bookNowItemID) {
+      return;
+    }
 
+    fetch(`${serverUrl}/book-now/${bookNowItemID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setBookingDataInfo(data);
+      });
+  }, [bookNowItemID]);
+
+  const handelBook = (event) => {
+    event.preventDefault();
+    setnumber(false);
+    setLocationr(false);
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const productName = form.productName.value;
+    const price = form.price.value;
+    const number = form.number.value;
+    const location = form.location.value;
+
+    const bookingData = {
+      name,
+      email,
+      productName,
+      price,
+      number,
+      location,
+      bookingProductId: bookNowItemID,
+    };
+
+    fetch(`${serverUrl}/book-now`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+      body: JSON.stringify(bookingData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.acknowledged) {
+          toast.success("your product is book");
+        }
+      });
+    form.reset();
+  };
   if (loading) {
     return <Login />;
   }
@@ -34,15 +80,15 @@ const Modal = () => {
           <h3 className="font-bold text-lg text-start">
             Congratulations random Internet user!
           </h3>
-          <form onSubmit={handleSubmit(handelBook)}>
+          <form onSubmit={handelBook}>
             <div className="form-control w-full max-w-lg">
               <label className="label">
                 <span className="label-text">Your name</span>
               </label>
               <input
                 type="text"
+                name="name"
                 defaultValue={user?.displayName}
-                value={user?.displayName}
                 disabled
                 className="input input-bordered w-full max-w-lg"
               />
@@ -52,9 +98,33 @@ const Modal = () => {
                 <span className="label-text">Your email</span>
               </label>
               <input
-                type="text"
+                type="email"
+                name="email"
                 defaultValue={user?.email}
-                value={user?.email}
+                disabled
+                className="input input-bordered w-full max-w-lg"
+              />
+            </div>
+            <div className="form-control w-full max-w-lg">
+              <label className="label">
+                <span className="label-text">product name</span>
+              </label>
+              <input
+                type="text"
+                name="productName"
+                defaultValue={bookingDataInfo?.title}
+                disabled
+                className="input input-bordered w-full max-w-lg"
+              />
+            </div>
+            <div className="form-control w-full max-w-lg">
+              <label className="label">
+                <span className="label-text">product price</span>
+              </label>
+              <input
+                type="text"
+                name="price"
+                defaultValue={bookingDataInfo?.resalePrice}
                 disabled
                 className="input input-bordered w-full max-w-lg"
               />
@@ -64,10 +134,12 @@ const Modal = () => {
                 <span className="label-text">Your Phone number</span>
               </label>
               <input
-                type="text"
-                {...register("number", {
-                  required: "Name is Required",
-                })}
+                onChange={(e) =>
+                  e.target.value ? setnumber(true) : setnumber(false)
+                }
+                type="number"
+                name="number"
+                required
                 className="input input-bordered w-full max-w-lg"
               />
             </div>
@@ -76,10 +148,12 @@ const Modal = () => {
                 <span className="label-text">Your location</span>
               </label>
               <input
+                onChange={(e) =>
+                  e.target.value ? setLocationr(true) : setLocationr(false)
+                }
                 type="text"
-                {...register("userLocation", {
-                  required: "Name is Required",
-                })}
+                name="location"
+                required
                 className="input input-bordered w-full max-w-lg"
               />
             </div>
@@ -88,7 +162,7 @@ const Modal = () => {
               <button className="modal-action" type="submit">
                 <label
                   className="btn btn-success btn-sm hover:bg-teal-500 "
-                  htmlFor="booking_modal"
+                  htmlFor={location && number ? "booking_modal" : ""}
                 >
                   submit
                 </label>

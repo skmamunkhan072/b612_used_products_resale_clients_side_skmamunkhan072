@@ -10,7 +10,11 @@ import MyProductsCard from "./MyProductsCard";
 const MyProducts = () => {
   const { user, loading } = useContext(AuthContext);
 
-  const { data: myProductInfo = [], isLoading } = useQuery({
+  const {
+    data: myProductInfo = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["my-products", user],
     queryFn: async () => {
       const res = await fetch(`${serverUrl}/my-products?email=${user?.email}`, {
@@ -35,7 +39,11 @@ const MyProducts = () => {
       </div>
       <div className="px-10">
         {myProductInfo?.map((product) => (
-          <MyProductsCard key={product._id} myProductInfo={product} />
+          <MyProductsCard
+            key={product._id}
+            myProductInfo={product}
+            refetch={refetch}
+          />
         ))}
       </div>
     </section>

@@ -3,39 +3,52 @@ import { Link, Outlet } from "react-router-dom";
 import { AiOutlineBars } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import "./DashboardLayout.css";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 
 const DashboardLayout = () => {
+  const { dataBaseUser } = useContext(AuthContext);
   const dashboardMenu = (
     <>
       <li className="mb-2">
         <Link to="/">Home</Link>
       </li>
-
-      <li className="mb-2">
-        <Link to="/dashboard/all-users">All Users</Link>
-      </li>
-
-      <li className="mb-2">
-        <Link to="/dashboard/my-orders">My Orders</Link>
-      </li>
-      <li className="mb-2">
-        <Link to="/dashboard/add-product">Add Product</Link>
-      </li>
-      <li className="mb-2">
-        <Link to="/dashboard/my-products">My Products</Link>
-      </li>
-      <li className="mb-2">
-        <Link to="/dashboard/my-buyers">My Buyers</Link>
-      </li>
-      <li className="mb-2">
-        <Link to="/dashboard/all-sellers">All Sellers</Link>
-      </li>
-      <li className="mb-2">
-        <Link to="/dashboard/all-buyers">All Buyers</Link>
-      </li>
-      <li className="mb-2">
-        <Link to="/dashboard/reported-items">Reported Items</Link>
-      </li>
+      {dataBaseUser?.selectedRole === "admin" && (
+        <>
+          <li className="mb-2">
+            <Link to="/dashboard/all-users">All Users</Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/dashboard/all-sellers">All Sellers</Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/dashboard/all-buyers">All Buyers</Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/dashboard/reported-items">Reported Items</Link>
+          </li>
+        </>
+      )}
+      {dataBaseUser?.selectedRole === "sealer" && (
+        <>
+          <li className="mb-2">
+            <Link to="/dashboard/add-product">Add Product</Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/dashboard/my-products">My Products</Link>
+          </li>
+          <li className="mb-2">
+            <Link to="/dashboard/my-buyers">My Buyers</Link>
+          </li>
+        </>
+      )}
+      {dataBaseUser?.selectedRole === "user" && (
+        <>
+          <li className="mb-2">
+            <Link to="/dashboard/my-orders">My Orders</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (

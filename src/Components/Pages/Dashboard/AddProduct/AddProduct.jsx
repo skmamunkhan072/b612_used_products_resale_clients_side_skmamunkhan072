@@ -71,11 +71,11 @@ const AddProduct = () => {
     return <Loading />;
   }
   return (
-    <div className="from_wraper -mt-10 h-[100vh]	">
+    <div className="from_wraper -mt-10 min-h-[100vh]	">
       <div className="mt-10">
         <SectionTitle title={"Add Your Product"} />
       </div>
-      <div className="w-3/4 mx-auto">
+      <div className="w-3/4 mx-auto pb-10">
         <form className="" onSubmit={handleSubmit(handelAddProduct)}>
           {imgHostLink ? (
             <div className="flex items-center justify-center mx-auto md:w-3/4 lg:w-2/4  my-10">

@@ -8,10 +8,15 @@ import MyBuyers from "../../Pages/Dashboard/MyBuyers/MyBuyers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import ReportedItems from "../../Pages/Dashboard/ReportedItems/ReportedItems";
+import AdvertisedItems from "../../Pages/Home/AdvertisedItems/AdvertisedItems";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import ErrorPage from "../../Pages/Share/ErrorPage/ErrorPage";
 import SingUp from "../../Pages/SingUp/SingUp";
+import AdminPrivetRoute from "../AdminPrivetRoute/AdminPrivetRoute";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SealerPrivetRoute from "../SealerPrivetRoute/SealerPrivetRoute";
+import UserPrivetRoute from "../UserPrivetRoute/UserPrivetRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: MainLayouts } = require("../../Layouts/MainLayouts");
@@ -23,24 +28,96 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
+      {
+        path: "/advertised-items",
+        element: (
+          <SealerPrivetRoute>
+            <AdvertisedItems />
+          </SealerPrivetRoute>
+        ),
+      },
       { path: "/singup", element: <SingUp /> },
       { path: "/login", element: <Login /> },
     ],
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
-      { path: "/dashboard", element: <Dashboard /> },
-      { path: "/dashboard/all-users", element: <AllUsers /> },
-      { path: "/dashboard/my-orders", element: <MyOrders /> },
-      { path: "/dashboard/add-product", element: <AddProduct /> },
-      { path: "/dashboard/my-products", element: <MyProducts /> },
-      { path: "/dashboard/my-buyers", element: <MyBuyers /> },
-      { path: "/dashboard/all-sellers", element: <AllSellers /> },
-      { path: "/dashboard/all-buyers", element: <AllBuyers /> },
-      { path: "/dashboard/reported-items", element: <ReportedItems /> },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/all-users",
+        element: (
+          <AdminPrivetRoute>
+            <AllUsers />
+          </AdminPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-sellers",
+        element: (
+          <AdminPrivetRoute>
+            <AllSellers />
+          </AdminPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-buyers",
+        element: (
+          <AdminPrivetRoute>
+            <AllBuyers />
+          </AdminPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/reported-items",
+        element: (
+          <AdminPrivetRoute>
+            <ReportedItems />
+          </AdminPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/add-product",
+        element: (
+          <SealerPrivetRoute>
+            <AddProduct />
+          </SealerPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-products",
+        element: (
+          <SealerPrivetRoute>
+            <MyProducts />
+          </SealerPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-buyers",
+        element: (
+          <SealerPrivetRoute>
+            <MyBuyers />
+          </SealerPrivetRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/my-orders",
+        element: (
+          <UserPrivetRoute>
+            <MyOrders />
+          </UserPrivetRoute>
+        ),
+      },
     ],
   },
 ]);

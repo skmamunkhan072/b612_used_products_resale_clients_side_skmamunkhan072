@@ -17,6 +17,7 @@ const auth = getAuth(app);
 const AuthContextProvaider = ({ children }) => {
   // state start
   const [user, setUser] = useState(null);
+  const [dataBaseUser, setDataBaseUser] = useState({});
   //   console.log(user);
   const [loading, setloading] = useState(true);
 
@@ -71,6 +72,8 @@ const AuthContextProvaider = ({ children }) => {
     forgotPassword,
     loading,
     setloading,
+    dataBaseUser,
+    setDataBaseUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

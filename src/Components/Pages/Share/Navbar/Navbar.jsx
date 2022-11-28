@@ -5,12 +5,11 @@ import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextPr
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, dataBaseUser } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   // console.log(user);
-
   const handelSingOut = () => {
     logOut()
       .then(() => {
@@ -25,9 +24,13 @@ const Navbar = () => {
       <li className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2">
         <Link to="/">Home</Link>
       </li>
-      <li className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2">
-        <Link to="/">Advertised items</Link>
-      </li>
+      {dataBaseUser?.selectedRole === "sealer" ? (
+        <li className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2">
+          <Link to="/advertised-items">Advertised items</Link>
+        </li>
+      ) : (
+        ""
+      )}
       <li className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2">
         <Link to="/dashboard">Dashboard</Link>
       </li>
