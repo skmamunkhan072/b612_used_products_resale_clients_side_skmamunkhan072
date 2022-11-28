@@ -5,7 +5,6 @@ import Loading from "../../Pages/Share/Loading/Loading";
 
 const SealerPrivetRoute = ({ children }) => {
   const { user, loading, dataBaseUser } = useContext(AuthContext);
-  console.log(dataBaseUser);
   if (loading) {
     return <Loading />;
   }

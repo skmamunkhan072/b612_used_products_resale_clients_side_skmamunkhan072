@@ -15,9 +15,9 @@ const PrivateRoute = ({ children }) => {
     if (!user) {
       return;
     }
-    console.log(user?.email);
+
     setloading(true);
-    fetch(`${serverUrl}/users?email=${user?.email}`, {
+    fetch(`${serverUrl}/user?email=${user?.email}`, {
       headers: {
         "Content-Type": "application/json",
         authorization: `bearer ${localStorage.getItem("access_Token")}`,

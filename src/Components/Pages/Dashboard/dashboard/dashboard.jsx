@@ -1,12 +1,21 @@
 import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
 import AllUsers from "../AllUsers/AllUsers";
+import MyOrders from "../MyOrders/MyOrders";
+import MyProducts from "../MyProducts/MyProducts";
 
-const dashboard = () => {
+const Dashboard = () => {
+  const { dataBaseUser } = useContext(AuthContext);
   return (
     <div>
-      <AllUsers />
+      {dataBaseUser?.selectedRole === "admin" && <AllUsers />}
+
+      {dataBaseUser?.selectedRole === "sealer" && <MyProducts />}
+
+      {dataBaseUser?.selectedRole === "user" && <MyOrders />}
     </div>
   );
 };
 
-export default dashboard;
+export default Dashboard;
