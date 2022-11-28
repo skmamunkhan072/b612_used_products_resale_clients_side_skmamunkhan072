@@ -34,6 +34,10 @@ const Navbar = () => {
       <li className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2">
         <Link to="/dashboard">Dashboard</Link>
       </li>
+      <li className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2">
+        <Link to="/blog">Blog</Link>
+      </li>
+
       {user ? (
         <li className="px-2.5 py-2 text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2">
           <button onClick={handelSingOut}>sing out</button>

@@ -12,6 +12,7 @@ import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
 import Payment from "../../Pages/Dashboard/Payment/Payment";
 import ReportedItems from "../../Pages/Dashboard/ReportedItems/ReportedItems";
 import AdvertisedItems from "../../Pages/Home/AdvertisedItems/AdvertisedItems";
+import Blog from "../../Pages/Home/Blog/Blog";
 import AllCategory from "../../Pages/Home/Category/AllCategory";
 import Category from "../../Pages/Home/Category/Category";
 import Home from "../../Pages/Home/Home/Home";
@@ -62,6 +63,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      { path: "/blog", element: <Blog /> },
     ],
   },
   {

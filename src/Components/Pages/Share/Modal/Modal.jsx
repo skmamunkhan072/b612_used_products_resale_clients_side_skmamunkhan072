@@ -59,7 +59,7 @@ const Modal = ({ bookNowItemID }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data?.acknowledged) {
-          neviget(`/dashboard/payment`);
+          neviget(`/dashboard/payment/${bookNowItemID}`);
           toast.success("your product is book");
         }
       });
