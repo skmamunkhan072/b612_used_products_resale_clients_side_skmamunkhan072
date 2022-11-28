@@ -80,26 +80,9 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/dashboard/all-users",
         element: (
           <AdminPrivetRoute>
             <AllUsers />
-          </AdminPrivetRoute>
-        ),
-      },
-      {
-        path: "/dashboard/all-sellers",
-        element: (
-          <AdminPrivetRoute>
-            <AllSellers />
-          </AdminPrivetRoute>
-        ),
-      },
-      {
-        path: "/dashboard/all-buyers",
-        element: (
-          <AdminPrivetRoute>
-            <AllBuyers />
           </AdminPrivetRoute>
         ),
       },

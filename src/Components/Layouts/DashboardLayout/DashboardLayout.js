@@ -16,13 +16,7 @@ const DashboardLayout = () => {
       {dataBaseUser?.selectedRole === "admin" && (
         <>
           <li className="mb-2">
-            <Link to="/dashboard/all-users">All Users</Link>
-          </li>
-          <li className="mb-2">
-            <Link to="/dashboard/all-sellers">All Sellers</Link>
-          </li>
-          <li className="mb-2">
-            <Link to="/dashboard/all-buyers">All Buyers</Link>
+            <Link to="/dashboard">All Users</Link>
           </li>
           <li className="mb-2">
             <Link to="/dashboard/reported-items">Reported Items</Link>
