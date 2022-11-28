@@ -1,7 +1,24 @@
 import React from "react";
+import toast from "react-hot-toast";
+import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 
 const UserCardTableBodyTr = ({ allUser, serialNo, setUserId }) => {
-  const { email, name, selectedRole } = allUser;
+  const { email, name, selectedRole, sellersVerify } = allUser;
+  const handelSealerVerify = (id) => {
+    console.log("hello", id);
+    fetch(`${serverUrl}/user/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data?.acknowledged) {
+          toast.success("sealer is verify successfully");
+        }
+      });
+  };
+  console.log(allUser);
+
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
       <td className="p-4 w-4">{serialNo}</td>
@@ -22,8 +39,25 @@ const UserCardTableBodyTr = ({ allUser, serialNo, setUserId }) => {
       <td className="py-4 px-6"> {selectedRole}</td>
       <td className="py-4 px-6">
         <div className="flex items-center">
-          <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
-          ofl ine
+          {selectedRole === "sealer" && (
+            <>
+              {sellersVerify ? (
+                <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
+              ) : (
+                <div className="h-2.5 w-2.5 rounded-full bg-red-400 mr-2"></div>
+              )}
+              {sellersVerify ? (
+                ""
+              ) : (
+                <h1
+                  onClick={() => handelSealerVerify(allUser?._id)}
+                  className="cursor-pointer font-bold hover:border-b-2 border-gray-400"
+                >
+                  verify
+                </h1>
+              )}
+            </>
+          )}
         </div>
       </td>
       <td className="py-4 px-6">

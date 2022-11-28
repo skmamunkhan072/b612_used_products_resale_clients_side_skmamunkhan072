@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextProvaider";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 import Login from "../../Login/Login";
@@ -12,6 +13,7 @@ const Modal = ({ bookNowItemID }) => {
   const [bookingDataInfo, setBookingDataInfo] = useState({});
   const [number, setnumber] = useState(false);
   const [location, setLocationr] = useState(false);
+  const neviget = useNavigate("");
   useEffect(() => {
     if (!bookNowItemID) {
       return;
@@ -57,6 +59,7 @@ const Modal = ({ bookNowItemID }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data?.acknowledged) {
+          neviget(`/dashboard/payment`);
           toast.success("your product is book");
         }
       });

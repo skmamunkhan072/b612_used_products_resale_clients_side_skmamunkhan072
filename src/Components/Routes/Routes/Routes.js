@@ -1,3 +1,4 @@
+import { serverUrl } from "../../Hooks/AllUrl/AllUrl";
 import DashboardLayout from "../../Layouts/DashboardLayout/DashboardLayout";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
@@ -7,8 +8,12 @@ import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard.jsx";
 import MyBuyers from "../../Pages/Dashboard/MyBuyers/MyBuyers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
+import MyWishList from "../../Pages/Dashboard/MyWishList/MyWishList";
+import Payment from "../../Pages/Dashboard/Payment/Payment";
 import ReportedItems from "../../Pages/Dashboard/ReportedItems/ReportedItems";
 import AdvertisedItems from "../../Pages/Home/AdvertisedItems/AdvertisedItems";
+import AllCategory from "../../Pages/Home/Category/AllCategory";
+import Category from "../../Pages/Home/Category/Category";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import ErrorPage from "../../Pages/Share/ErrorPage/ErrorPage";
@@ -38,6 +43,25 @@ export const router = createBrowserRouter([
       },
       { path: "/singup", element: <SingUp /> },
       { path: "/login", element: <Login /> },
+      {
+        path: "/category",
+        element: (
+          <PrivateRoute>
+            <AllCategory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/category/:id",
+        loader: async ({ params }) => {
+          return fetch(`${serverUrl}/category-products/${params.id}`);
+        },
+        element: (
+          <PrivateRoute>
+            <Category />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -115,6 +139,24 @@ export const router = createBrowserRouter([
         element: (
           <UserPrivetRoute>
             <MyOrders />
+          </UserPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-wishlist",
+        element: (
+          <UserPrivetRoute>
+            <MyWishList />
+          </UserPrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        loader: ({ params }) =>
+          fetch(`${serverUrl}/dashboard/payment/${params.id}`),
+        element: (
+          <UserPrivetRoute>
+            <Payment />
           </UserPrivetRoute>
         ),
       },

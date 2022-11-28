@@ -4,7 +4,7 @@ import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 import Loading from "../../Share/Loading/Loading";
 import CategoryButton from "./CategoryButton";
 
-const CategoryButtonGrop = ({ handelCategory }) => {
+const CategoryButtonGrop = () => {
   const { data: categorys = [], isLoading } = useQuery({
     queryKey: ["all-products-category"],
     queryFn: async () => {
@@ -24,11 +24,7 @@ const CategoryButtonGrop = ({ handelCategory }) => {
         role="group"
       >
         {categorys.map((category) => (
-          <CategoryButton
-            key={category._id}
-            category={category}
-            handelCategory={handelCategory}
-          />
+          <CategoryButton key={category._id} category={category} />
         ))}
       </div>
     </div>

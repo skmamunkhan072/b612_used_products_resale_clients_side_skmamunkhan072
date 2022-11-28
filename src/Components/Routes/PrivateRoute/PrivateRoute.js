@@ -25,7 +25,6 @@ const PrivateRoute = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setDataBaseUser(data);
         setloading(false);
       });
