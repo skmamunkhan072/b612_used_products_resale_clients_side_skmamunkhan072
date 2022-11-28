@@ -4,13 +4,21 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import { serverUrl } from "../../Hooks/AllUrl/AllUrl";
 import Login from "../Login/Login";
+import { useToken } from "../../Hooks/UseToken";
 
 const SingUp = () => {
-  const { createUserEmailPassword, updateUser, loading, setloading } =
-    useContext(AuthContext);
+  const {
+    createUserEmailPassword,
+    updateUser,
+    loading,
+    setloading,
+    GoogleLogin,
+  } = useContext(AuthContext);
   const [signUpError, setSignUPError] = useState("");
+  const [user, setuser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [token] = useToken(user);
   const {
     register,
     handleSubmit,
@@ -32,6 +40,16 @@ const SingUp = () => {
         setloading(false);
       });
   };
+
+  // google login
+  const handelGoogleLogin = () => {
+    GoogleLogin()
+      .then((result) => {
+        databaseUserPost(result.user);
+        setuser(result.user.email);
+      })
+      .catch((error) => {});
+  };
   // update user profile function
   const updateUserProfile = (userUpdateInfo, userData) => {
     updateUser(userUpdateInfo)
@@ -46,7 +64,14 @@ const SingUp = () => {
   // user data post database
   const databaseUserPost = (userData) => {
     const { email, name, selectedRole } = userData;
-    const user = { email, name, selectedRole };
+    // if (selectedRole) {
+    //   const user = { email, name, selectedRole: "user" };
+    // } else {
+    const user = {
+      email: email ? email : userData?.email,
+      name: name ? name : userData?.displayName,
+      selectedRole: selectedRole ? selectedRole : "user",
+    };
 
     // user data post
     fetch(`${serverUrl}/users`, {
@@ -157,7 +182,9 @@ const SingUp = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+        <button onClick={handelGoogleLogin} className="btn btn-outline w-full">
+          CONTINUE WITH GOOGLE
+        </button>
       </div>
     </div>
   );

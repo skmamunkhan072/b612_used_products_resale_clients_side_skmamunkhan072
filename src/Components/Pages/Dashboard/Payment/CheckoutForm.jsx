@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
+import toast from "react-hot-toast";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ booking }) => {
   const [errorCard, setErrorCard] = useState();
@@ -8,6 +10,7 @@ const CheckoutForm = ({ booking }) => {
   const [transactionId, setTransactionId] = useState();
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate("");
   const stripe = useStripe();
   const elements = useElements();
   const { resalePrice, email, name, _id } = booking;
@@ -22,9 +25,8 @@ const CheckoutForm = ({ booking }) => {
       body: JSON.stringify({ resalePrice }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) => setClientSecret(data?.clientSecret));
   }, [resalePrice]);
-
   // payment handel function
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,14 +66,13 @@ const CheckoutForm = ({ booking }) => {
       setErrorCard(confirmError.message);
     }
     if (paymentIntent.status === "succeeded") {
-      console.log(paymentIntent);
       const payment = {
         resalePrice,
         transactionId: paymentIntent.id,
         bookingId: _id,
       };
       fetch(`${serverUrl}/dashboard/payments`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -83,12 +84,13 @@ const CheckoutForm = ({ booking }) => {
           console.log(data);
           if (data.acknowledged) {
             setSuccess("Congrats! your payment completed");
+            toast.success("Congrats! your payment completed");
             setTransactionId(paymentIntent.id);
+            navigate("/dashboard/my-orders");
           }
         });
     }
     setProcessing(false);
-    console.log(paymentIntent);
   };
   return (
     <>

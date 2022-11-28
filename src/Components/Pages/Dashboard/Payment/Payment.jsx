@@ -9,7 +9,6 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const Payment = () => {
   const booking = useLoaderData();
-  console.log(booking);
   return (
     <section>
       <div className="mb-5">
