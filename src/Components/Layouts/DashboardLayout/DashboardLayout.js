@@ -1,13 +1,26 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AiOutlineBars } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import "./DashboardLayout.css";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
+import toast from "react-hot-toast";
 
 const DashboardLayout = () => {
-  const { dataBaseUser } = useContext(AuthContext);
+  const { dataBaseUser, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  // user sing out
+  const handelSingOut = () => {
+    logOut()
+      .then(() => {
+        localStorage.removeItem("access_Token");
+        toast.success("singOut is successfully");
+        navigate("/login");
+      })
+      .catch((err) => {});
+  };
+
   const dashboardMenu = (
     <>
       <li className="mb-2">
@@ -46,6 +59,9 @@ const DashboardLayout = () => {
           </li>
         </>
       )}
+      <li onClick={handelSingOut} className="mb-2">
+        <span>Sing Out</span>
+      </li>
     </>
   );
   return (

@@ -35,9 +35,11 @@ export const router = createBrowserRouter([
       {
         path: "/advertised-items",
         element: (
-          <SealerPrivetRoute>
-            <AdvertisedItems />
-          </SealerPrivetRoute>
+          <PrivateRoute>
+            <SealerPrivetRoute>
+              <AdvertisedItems />
+            </SealerPrivetRoute>
+          </PrivateRoute>
         ),
       },
       { path: "/singup", element: <SingUp /> },
@@ -53,7 +55,12 @@ export const router = createBrowserRouter([
       {
         path: "/category/:id",
         loader: async ({ params }) => {
-          return fetch(`${serverUrl}/category-products/${params.id}`);
+          return fetch(`${serverUrl}/category-products/${params.id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `bearer ${localStorage.getItem("access_Token")}`,
+            },
+          });
         },
         element: (
           <PrivateRoute>
@@ -110,6 +117,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/my-buyers",
+        loader: () =>
+          fetch(`${serverUrl}/my-all-buyers`, {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `bearer ${localStorage.getItem("access_Token")}`,
+            },
+          }),
         element: (
           <SealerPrivetRoute>
             <MyBuyers />
