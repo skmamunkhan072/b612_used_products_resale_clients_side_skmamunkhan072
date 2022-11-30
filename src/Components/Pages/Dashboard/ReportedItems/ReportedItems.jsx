@@ -21,6 +21,12 @@ const ReportedItems = () => {
   });
   return (
     <div>
+      {!repotedItems.length && (
+        <div className="w-full h-[100vh] flex justify-center items-center">
+          <h1 className="text-4xl">NO Repot item</h1>
+        </div>
+      )}
+
       <div className="grid gap-5 grid-cols-1 xl:grid-cols-2 px-10 py-10">
         {repotedItems?.map((repotedItem) => (
           <CategoryCard
