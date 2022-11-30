@@ -115,7 +115,7 @@ const CategoryCard = ({ cardInfo, BookNow, setBookNowItemId, refetch }) => {
           )}
         </>
       )}
-      {cardInfo?.productRepot && (
+      {cardInfo?.productRepot && dataBaseUser?.selectedRole === "admin" && (
         <div className="flex justify-end items-center px-5 my-3">
           <button
             onClick={() => handelRepotedItemDelete(cardInfo?._id)}
