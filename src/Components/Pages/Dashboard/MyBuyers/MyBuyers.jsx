@@ -42,8 +42,8 @@ const MyBuyers = () => {
                       <img
                         className="w-10 h-10 rounded-full"
                         src={
-                          user?.bookingPhotoUrl
-                            ? user?.bookingPhotoUrl
+                          user?.photoURL
+                            ? user?.photoURL
                             : "https://i.ibb.co/Vq4mhCx/people3.png"
                         }
                         alt="User Img"
