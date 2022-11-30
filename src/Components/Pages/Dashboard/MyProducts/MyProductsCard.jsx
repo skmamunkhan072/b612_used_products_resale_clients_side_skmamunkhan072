@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 
 const MyProductsCard = ({ myProductInfo, refetch }) => {
   const navigate = useNavigate("/");
+  //handel Advertised Items
   const handelAdvertisedItems = (id) => {
     fetch(`${serverUrl}/my-products/${id}`, {
       method: "PUT",

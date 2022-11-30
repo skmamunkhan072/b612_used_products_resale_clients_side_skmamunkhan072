@@ -8,7 +8,7 @@ import UserOrderDataTableBody from "../../Share/UserOrderDataTable/UserOrderData
 
 const MyWishList = () => {
   const { user } = useContext(AuthContext);
-  const { data: mybooklistData = [] } = useQuery({
+  const { data: mybooklistData = [], refetch } = useQuery({
     queryKey: ["/my-booking-products", user],
     queryFn: async () => {
       const res = await fetch(
@@ -30,7 +30,10 @@ const MyWishList = () => {
       <div className="mb-5">
         <SectionTitle title={"My All WishList"} />
       </div>
-      <UserOrderDataTableBody mybooklistData={mybooklistData} />
+      <UserOrderDataTableBody
+        mybooklistData={mybooklistData}
+        refetch={refetch}
+      />
     </section>
   );
 };

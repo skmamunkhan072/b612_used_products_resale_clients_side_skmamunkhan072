@@ -18,7 +18,12 @@ const Modal = ({ bookNowItemID, bookingDataInfo, setBookingDataInfo }) => {
       return;
     }
 
-    fetch(`${serverUrl}/book-now/${bookNowItemID}`)
+    fetch(`${serverUrl}/book-now/${bookNowItemID}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setBookingDataInfo(data);

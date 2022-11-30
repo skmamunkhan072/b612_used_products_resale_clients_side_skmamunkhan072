@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 import toast from "react-hot-toast";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ booking }) => {
   const [errorCard, setErrorCard] = useState();
@@ -14,13 +14,14 @@ const CheckoutForm = ({ booking }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { resalePrice, email, name, _id } = booking;
+  console.log(booking);
 
   useEffect(() => {
     fetch(`${serverUrl}/dashboard/payment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
       },
       body: JSON.stringify({ resalePrice }),
     })
@@ -75,7 +76,7 @@ const CheckoutForm = ({ booking }) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          authorization: `bearer ${localStorage.getItem("access_Token")}`,
         },
         body: JSON.stringify(payment),
       })

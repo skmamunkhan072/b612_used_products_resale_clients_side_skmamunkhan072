@@ -1,26 +1,28 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 
 const UserOrderDataTableBody = ({ mybooklistData, refetch }) => {
   const navigate = useNavigate("");
   const handelPayment = (id) => {
+    refetch();
     navigate(`/dashboard/payment/${id}`);
   };
   // Delete product
   const heandelDeleteProduct = (id) => {
-    console.log(id);
     fetch(`${serverUrl}/book-now/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
         if (data?.acknowledged) {
           refetch();
+          toast.success("products delete is successful");
         }
       });
   };

@@ -6,11 +6,9 @@ import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextPr
 import toast from "react-hot-toast";
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 
-const CategoryCard = ({ cardInfo, BookNow, setBookNowItemId }) => {
+const CategoryCard = ({ cardInfo, BookNow, setBookNowItemId, refetch }) => {
   const { dataBaseUser } = useContext(AuthContext);
   const details = cardInfo?.details.slice(0, 40);
-  console.log(cardInfo);
-
   // repot items product repot to admin function
   const handelRepotItems = (id) => {
     console.log(id);
@@ -18,7 +16,7 @@ const CategoryCard = ({ cardInfo, BookNow, setBookNowItemId }) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
       },
       body: JSON.stringify({ id }),
     })
@@ -33,22 +31,20 @@ const CategoryCard = ({ cardInfo, BookNow, setBookNowItemId }) => {
 
   // Delete repoded item
   const handelRepotedItemDelete = (id) => {
-    console.log(id);
-
-    // fetch(`${serverUrl}/repot-item/${id}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     authorization: `bearer ${localStorage.getItem("accessToken")}`,
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.acknowledged) {
-    //       toast.success("Your Repoted item Deleted successful");
-    //     }
-    //   });
+    fetch(`${serverUrl}/repot-items/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          refetch();
+          toast.success("Your Repoted item Deleted successful");
+        }
+      });
   };
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -119,7 +115,7 @@ const CategoryCard = ({ cardInfo, BookNow, setBookNowItemId }) => {
           )}
         </>
       )}
-      {cardInfo?.sellersVerify && (
+      {cardInfo?.productRepot && (
         <div className="flex justify-end items-center px-5 my-3">
           <button
             onClick={() => handelRepotedItemDelete(cardInfo?._id)}

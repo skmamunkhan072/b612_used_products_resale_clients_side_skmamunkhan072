@@ -5,7 +5,7 @@ import CategoryCard from "../../Share/CategoryCard/CategoryCard";
 
 const ReportedItems = () => {
   // all repodet items
-  const { data: repotedItems = [] } = useQuery({
+  const { data: repotedItems = [], refetch } = useQuery({
     queryKey: ["/repot-items"],
     queryFn: async () => {
       const res = await fetch(`${serverUrl}/repot-items`, {
@@ -27,7 +27,7 @@ const ReportedItems = () => {
             key={repotedItem._id}
             cardInfo={repotedItem}
             BookNow={true}
-            // setBookNowItemId={setBookNowItemId}
+            refetch={refetch}
           />
         ))}
       </div>

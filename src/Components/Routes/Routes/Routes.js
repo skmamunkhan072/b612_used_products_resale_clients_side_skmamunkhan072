@@ -136,7 +136,12 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/payment/:id",
         loader: ({ params }) =>
-          fetch(`${serverUrl}/dashboard/payment/${params.id}`),
+          fetch(`${serverUrl}/dashboard/payment/${params.id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `bearer ${localStorage.getItem("access_Token")}`,
+            },
+          }),
         element: (
           <UserPrivetRoute>
             <Payment />
