@@ -11,7 +11,7 @@ const MyProducts = () => {
   const { user, loading } = useContext(AuthContext);
 
   const {
-    data: myProductInfo = [],
+    data: myProducts = [],
     isLoading,
     refetch,
   } = useQuery({
@@ -27,7 +27,11 @@ const MyProducts = () => {
       return data;
     },
   });
-  // console.log(myProductInfo);
+
+  const sortProducts = myProducts.sort(
+    (advertised, notAdvertised) =>
+      Number(advertised.advertised) - Number(notAdvertised.advertised)
+  );
 
   if (loading || isLoading) {
     return <Loading />;
@@ -38,7 +42,7 @@ const MyProducts = () => {
         <SectionTitle title={"My All Products"} />
       </div>
       <div className="px-10">
-        {myProductInfo?.map((product) => (
+        {sortProducts?.map((product) => (
           <MyProductsCard
             key={product._id}
             myProductInfo={product}

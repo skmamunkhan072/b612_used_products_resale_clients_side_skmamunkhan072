@@ -21,10 +21,10 @@ const MyWishList = () => {
         }
       );
       const data = await res.json();
-      console.log();
       return data;
     },
   });
+
   return (
     <section>
       <div className="mb-5">

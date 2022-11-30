@@ -1,8 +1,6 @@
 import { serverUrl } from "../../Hooks/AllUrl/AllUrl";
 import DashboardLayout from "../../Layouts/DashboardLayout/DashboardLayout";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
-import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
-import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard.jsx";
 import MyBuyers from "../../Pages/Dashboard/MyBuyers/MyBuyers";
@@ -121,13 +119,6 @@ export const router = createBrowserRouter([
 
       {
         path: "/dashboard/my-orders",
-        loader: ({ params }) =>
-          fetch(`${serverUrl}/my-orders`, {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `bearer ${localStorage.getItem("access_Token")}`,
-            },
-          }),
         element: (
           <UserPrivetRoute>
             <MyOrders />

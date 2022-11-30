@@ -48,6 +48,7 @@ const AddProduct = () => {
       postTime: newTiem,
       productImageUrl: imgHostLink?.data?.display_url,
       sellersVerify: false,
+      advertised: false,
     };
     // console.log(productData);
     fetch(`${serverUrl}/add-product`, {

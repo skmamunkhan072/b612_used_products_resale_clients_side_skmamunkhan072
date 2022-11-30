@@ -8,9 +8,8 @@ import { AuthContext } from "../../../Context/AuthContextProvaider/AuthContextPr
 import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 import Login from "../../Login/Login";
 
-const Modal = ({ bookNowItemID }) => {
+const Modal = ({ bookNowItemID, bookingDataInfo, setBookingDataInfo }) => {
   const { user, loading, setloading } = useContext(AuthContext);
-  const [bookingDataInfo, setBookingDataInfo] = useState({});
   const [number, setnumber] = useState(false);
   const [location, setLocationr] = useState(false);
   const neviget = useNavigate("");
@@ -25,6 +24,13 @@ const Modal = ({ bookNowItemID }) => {
         setBookingDataInfo(data);
       });
   }, [bookNowItemID]);
+  //new date create
+  const defaultMonthAndDate = new Date().toLocaleString();
+  const newDate = defaultMonthAndDate.split(",")[0].split("/").join("-");
+  const newTiem = new Date().toLocaleTimeString(navigator.language, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   const handelBook = (event) => {
     event.preventDefault();
@@ -46,8 +52,13 @@ const Modal = ({ bookNowItemID }) => {
       number,
       location,
       bookingProductId: bookNowItemID,
+      bookingPhotoUrl: bookingDataInfo?.productImageUrl,
+      sealerName: bookingDataInfo?.name,
+      sealerEmail: bookingDataInfo?.email,
+      sellersVerify: bookingDataInfo?.sellersVerify,
+      Category: bookingDataInfo?.Category,
     };
-
+    console.log(bookingData);
     fetch(`${serverUrl}/book-now`, {
       method: "POST",
       headers: {

@@ -32,6 +32,7 @@ const SingUp = () => {
     createUserEmailPassword(email, password)
       .then((result) => {
         const userUpdateInfo = { displayName: name };
+        databaseUserPost(data);
         updateUserProfile(userUpdateInfo, data);
       })
       .catch((err) => {
@@ -53,9 +54,7 @@ const SingUp = () => {
   // update user profile function
   const updateUserProfile = (userUpdateInfo, userData) => {
     updateUser(userUpdateInfo)
-      .then((result) => {
-        databaseUserPost(userData);
-      })
+      .then((result) => {})
       .catch((updateError) => {
         console.log(updateError);
         setSignUPError(updateError.message);
@@ -64,9 +63,6 @@ const SingUp = () => {
   // user data post database
   const databaseUserPost = (userData) => {
     const { email, name, selectedRole } = userData;
-    // if (selectedRole) {
-    //   const user = { email, name, selectedRole: "user" };
-    // } else {
     const user = {
       email: email ? email : userData?.email,
       name: name ? name : userData?.displayName,
@@ -85,6 +81,7 @@ const SingUp = () => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
+          setuser(userData.email);
           navigate(from, { replace: true });
           setloading(false);
         }
@@ -95,11 +92,11 @@ const SingUp = () => {
     return <Login />;
   }
   return (
-    <div className="from_wraper h-[800px] flex justify-center items-center">
-      <div className="w-2/6 px-10 py-20 bg-slate-800 rounded-lg shadow-lg	">
+    <div className="from_wraper lg:h-[800px] flex justify-center items-center">
+      <div className="lg:w-2/6 w-full px-10 py-20 bg-slate-800 rounded-lg shadow-lg	">
         <h2 className="text-xl text-center">Sign Up</h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
-          <div className="form-control w-full max-w-lg">
+          <div className="form-control w-full max-w-lg mx-auto">
             <label className="label">
               <span className="label-text">Name</span>
             </label>
@@ -108,13 +105,13 @@ const SingUp = () => {
               {...register("name", {
                 required: "Name is Required",
               })}
-              className="input input-bordered w-full max-w-lg"
+              className="input input-bordered w-full max-w-lg mx-auto"
             />
             {errors.name && (
               <p className="text-red-500">{errors.name.message}</p>
             )}
           </div>
-          <div className="form-control w-full max-w-lg">
+          <div className="form-control w-full max-w-lg mx-auto">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
@@ -123,14 +120,14 @@ const SingUp = () => {
               {...register("email", {
                 required: true,
               })}
-              className="input input-bordered w-full max-w-lg"
+              className="input input-bordered w-full max-w-lg mx-auto"
             />
             {errors.email && (
               <p className="text-red-500">{errors.email.message}</p>
             )}
           </div>
 
-          <div className="form-control w-full max-w-lg">
+          <div className="form-control w-full max-w-lg mx-auto">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
@@ -148,41 +145,44 @@ const SingUp = () => {
                     "Password must have uppercase, number and special characters",
                 },
               })}
-              className="input input-bordered w-full max-w-lg"
+              className="input input-bordered w-full max-w-lg mx-auto"
             />
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}
           </div>
 
-          <div className="form-control w-full max-w-lg">
+          <div className="form-control w-full max-w-lg mx-auto">
             <label className="label">
               <span className="label-text">Select</span>
             </label>
             <select
               type="text"
               {...register("selectedRole")}
-              className="select input-bordered w-full max-w-lg"
+              className="select input-bordered w-full max-w-lg mx-auto"
             >
               <option>user</option>
               <option>sealer</option>
             </select>
           </div>
           <input
-            className="btn btn-accent w-full mt-4"
+            className="btn btn-accent mt-4 w-full max-w-lg mx-auto"
             value="Sign Up"
             type="submit"
           />
           {signUpError && <p className="text-red-600">{signUpError}</p>}
         </form>
-        <p className="mt-3">
+        <p className="mt-3 w-full max-w-lg mx-auto">
           Already have an account
           <Link className="text-emerald-500 ml-3" to="/login">
             Please Login
           </Link>
         </p>
-        <div className="divider">OR</div>
-        <button onClick={handelGoogleLogin} className="btn btn-outline w-full">
+        <div className="divider w-full max-w-lg mx-auto">OR</div>
+        <button
+          onClick={handelGoogleLogin}
+          className="btn btn-outline w-full max-w-lg mx-auto"
+        >
           CONTINUE WITH GOOGLE
         </button>
       </div>

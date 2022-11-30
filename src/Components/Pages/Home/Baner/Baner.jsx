@@ -5,9 +5,9 @@ const Baner = () => {
   const [count, setCount] = useState(0);
   const sliderImg = [
     "https://i.ibb.co/2vg4XRF/dribbble-1.gif",
-    "https://i.ibb.co/WVDz7dW/chair.png",
+    "https://i.ibb.co/Rp6GNfZ/images-2.jpg",
     "https://i.ibb.co/2vg4XRF/dribbble-1.gif",
-    "https://i.ibb.co/WVDz7dW/chair.png",
+    "https://i.ibb.co/Rp6GNfZ/images-2.jpg",
   ];
 
   const hendelSliderPreves = () => {

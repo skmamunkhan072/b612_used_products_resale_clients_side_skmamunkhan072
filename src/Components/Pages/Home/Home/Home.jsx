@@ -5,6 +5,7 @@ import Loading from "../../Share/Loading/Loading";
 import Baner from "../Baner/Baner";
 import AllCategory from "../Category/AllCategory";
 import Category from "../Category/Category";
+import Explore from "../Explore/Explore";
 
 const Home = () => {
   const { loading } = useContext(AuthContext);
@@ -14,6 +15,7 @@ const Home = () => {
   return (
     <div>
       <Baner />
+      <Explore />
       <AllCategory />
     </div>
   );

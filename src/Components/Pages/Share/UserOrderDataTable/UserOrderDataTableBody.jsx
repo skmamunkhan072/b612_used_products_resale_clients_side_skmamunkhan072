@@ -1,12 +1,30 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { serverUrl } from "../../../Hooks/AllUrl/AllUrl";
 
-const UserOrderDataTableBody = ({ mybooklistData }) => {
+const UserOrderDataTableBody = ({ mybooklistData, refetch }) => {
   const navigate = useNavigate("");
   const handelPayment = (id) => {
     navigate(`/dashboard/payment/${id}`);
   };
-  console.log(mybooklistData);
+  // Delete product
+  const heandelDeleteProduct = (id) => {
+    console.log(id);
+    fetch(`${serverUrl}/book-now/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.acknowledged) {
+          refetch();
+        }
+      });
+  };
+
   return (
     <div className="px-10">
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -38,55 +56,63 @@ const UserOrderDataTableBody = ({ mybooklistData }) => {
             </tr>
           </thead>
           <tbody>
-            {mybooklistData?.map((bookd, i) => (
-              <tr
-                key={i}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-              >
-                <td className="p-4">{i + 1}</td>
-                <td className="p-4">
-                  <img
-                    className="w-20 rounded-lg"
-                    src={
-                      bookd?.productImageUrl
-                        ? bookd?.productImageUrl
-                        : "https://i.ibb.co/2vg4XRF/dribbble-1.gif"
-                    }
-                    alt="Apple Watch"
-                  />
-                </td>
+            {mybooklistData &&
+              mybooklistData?.map((bookd, i) => (
+                <tr
+                  key={i}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                  <td className="p-4">{i + 1}</td>
+                  <td className="p-4">
+                    <img
+                      className="w-20 rounded-lg"
+                      src={
+                        bookd?.bookingPhotoUrl
+                          ? bookd?.bookingPhotoUrl
+                          : "https://i.ibb.co/2vg4XRF/dribbble-1.gif"
+                      }
+                      alt="Apple Watch"
+                    />
+                  </td>
 
-                <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  Laptop acer
-                </td>
-                <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  <p>Name : {bookd?.name}</p>
-                  <p className="text-xs">Email :{bookd?.email}</p>
-                </td>
-                <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  <div className="">
-                    <p>
-                      resale price :
-                      <span className="font-normal">
-                        {bookd?.resalePrice} Tk
-                      </span>
-                    </p>
-                    <p>
-                      original price :
-                      <span className="font-normal">
-                        {bookd?.originalPrice}Tk
-                      </span>
-                    </p>
-                  </div>
-                </td>
-                <td className="py-4 px-6 font-semibold text-red-500 dark:text-red-500 cursor-pointer">
-                  Remove
-                </td>
-                <td className="py-4 px-6 font-semibold text-gray-500 dark:text-gray-500 cursor-pointer">
-                  <Link to={`/dashboard/payment/${bookd?._id}`}>Pay Now</Link>
-                </td>
-              </tr>
-            ))}
+                  <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                    {bookd?.productName}
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                    <p>Name : {bookd?.sealerName}</p>
+                    <p className="text-xs">Email :{bookd?.sealerEmail}</p>
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                    <div className="">
+                      <p>
+                        price :
+                        <span className="font-normal ml-2">
+                          {bookd?.price}Tk
+                        </span>
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-red-500 dark:text-red-500 cursor-pointer">
+                    <span
+                      onClick={() => heandelDeleteProduct(bookd?._id)}
+                      className="hover:border-grey-600 hover:border-b-2"
+                    >
+                      Remove
+                    </span>
+                  </td>
+                  <td className="py-4 px-6 font-semibold text-gray-500 dark:text-gray-500 cursor-pointer">
+                    {bookd?.payment === "paid" && <span>Paid</span>}
+                    {!bookd?.payment && (
+                      <Link
+                        to={`/dashboard/payment/${bookd?.bookingProductId}`}
+                        className="hover:border-grey-600 hover:border-b-2"
+                      >
+                        Pay Now
+                      </Link>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
