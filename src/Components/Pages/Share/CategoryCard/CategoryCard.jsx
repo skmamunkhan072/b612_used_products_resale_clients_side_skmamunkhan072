@@ -108,7 +108,7 @@ const CategoryCard = ({ cardInfo, BookNow, setBookNowItemId, refetch }) => {
                 className="btn btn-sm"
                 htmlFor="booking_modal"
               >
-                Book no
+                Book now
                 <BsArrowRight className="ml-2 text-xl" />
               </label>
             </div>

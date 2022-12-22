@@ -11,7 +11,7 @@ const Footer = () => {
               to="/"
               aria-label="Go home"
               title="Company"
-              className="inline-flex items-center"
+              className="flex items-center justify-center"
             >
               <svg
                 className="w-8 text-deep-purple-accent-400"
@@ -28,27 +28,27 @@ const Footer = () => {
                 <rect x="14" y="1" width="7" height="6" />
                 <rect x="14" y="11" width="7" height="12" />
               </svg>
-              <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+              <span className="ml-2 text-xl font-bold tracking-wide text-gray-300 uppercase">
                 Company
               </span>
             </Link>
-            <div className="mt-6 lg:max-w-sm">
-              <p className="text-sm text-gray-800">
+            <div className="mt-6 lg:max-w-sm text-white text-center mx-auto">
+              <p className="text-sm">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium, totam rem aperiam.
               </p>
-              <p className="mt-4 text-sm text-gray-800">
+              <p className="mt-4 text-sm">
                 Eaque ipsa quae ab illo inventore veritatis et quasi architecto
                 beatae vitae dicta sunt explicabo.
               </p>
             </div>
           </div>
           <div className="space-y-2 text-sm">
-            <p className="text-base font-bold tracking-wide text-gray-900">
+            <p className="text-base font-bold tracking-wide text-gray-300">
               Contacts
             </p>
             <div className="flex">
-              <p className="mr-1 text-gray-800">Phone:</p>
+              <p className="mr-1">Phone:</p>
               <Link
                 href="tel:850-123-5021"
                 aria-label="Our phone"

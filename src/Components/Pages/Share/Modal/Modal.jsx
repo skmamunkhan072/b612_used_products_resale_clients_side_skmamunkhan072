@@ -13,6 +13,8 @@ const Modal = ({ bookNowItemID, bookingDataInfo, setBookingDataInfo }) => {
   const [number, setnumber] = useState(false);
   const [location, setLocationr] = useState(false);
   const neviget = useNavigate("");
+
+  // booking id fetch server
   useEffect(() => {
     if (!bookNowItemID) {
       return;

@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import { serverUrl } from "../../Hooks/AllUrl/AllUrl";
-import Login from "../Login/Login";
 import { useToken } from "../../Hooks/UseToken";
+import Login from "../Login/Login";
 
 const SingUp = () => {
   const {
@@ -16,9 +16,12 @@ const SingUp = () => {
   } = useContext(AuthContext);
   const [signUpError, setSignUPError] = useState("");
   const [user, setuser] = useState(null);
+  const [singUpUserEmail, setSingUpUserEmail] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+
   const [token] = useToken(user);
+
   const {
     register,
     handleSubmit,
@@ -81,16 +84,24 @@ const SingUp = () => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          setuser(userData.email);
-          navigate(from, { replace: true });
+          setuser(userData?.email);
           setloading(false);
         }
       });
   };
 
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
+    } else {
+      setloading(false);
+    }
+  }, [token]);
+
   if (loading) {
     return <Login />;
   }
+
   return (
     <div className="from_wraper lg:h-[800px] flex justify-center items-center">
       <div className="lg:w-2/6 w-full px-10 py-20 bg-slate-800 rounded-lg shadow-lg	">
